@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FeedbackNative</string>
+    <string name="title_activity_live_card_service">Feedback Native Client</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_act">Act</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="pace_string">PaceValue</string>
+</resources>

@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/action_act"
+        android:id="@+id/action_act" />
+    <item android:title="Reset"
+        android:id="@+id/action_reset" />
+    <item
+        android:icon="@drawable/ic_stop"
+        android:title="@string/action_stop"
+        android:id="@+id/action_stop" />
+</menu>
