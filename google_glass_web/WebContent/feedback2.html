@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+   <title>Feedback</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+   <script src="https://www.w3schools.com/lib/w3data.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <style>
+      /* Full-width input fields */
+      input[type=text], input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      }
+      /* Set a style for all buttons */
+      button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      }
+      /* Extra styles for the cancel button */
+      .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      background-color: #f44336;
+      }
+      /* Center the image and position the close button */
+      .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+      position: relative;
+      }
+      img.avatar {
+      width: 40%;
+      border-radius: 50%;
+      }
+      .container {
+      padding: 16px;
+      }
+      span.psw {
+      float: right;
+      padding-top: 16px;
+      }
+      /* The Modal (background) */
+      .modal {
+      display: block; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      padding-top: 60px;
+      }
+      /* Modal Content/Box */
+      .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+      border: 1px solid #888;
+      width: 80%; /* Could be more or less, depending on screen size */
+      }
+      /* The Close Button (x) */
+      .close {
+      position: absolute;
+      right: 25px;
+      top: 0;
+      color: #000;
+      font-size: 35px;
+      font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+      color: red;
+      cursor: pointer;
+      }
+      /* Add Zoom Animation */
+      .animate {
+      -webkit-animation: animatezoom 0.6s;
+      animation: animatezoom 0.6s
+      }
+      @-webkit-keyframes animatezoom {
+      from {-webkit-transform: scale(0)} 
+      to {-webkit-transform: scale(1)}
+      }
+      @keyframes animatezoom {
+      from {transform: scale(0)} 
+      to {transform: scale(1)}
+      }
+      /* Change styles for span and cancel button on extra small screens */
+      @media screen and (max-width: 300px) {
+      span.psw {
+      display: block;
+      float: none;
+      }
+      .cancelbtn {
+      width: 100%;
+      }
+      }
+   </style>
+   <body>
+      <div id="loginForm" class="modal">
+         <div class="modal-content animate">
+            <div class="container">
+               <label><b>Student ID</b></label>
+               <input type="text" placeholder="Enter Your ID" name="uname" id="studentId" required>
+               <button type="button" onClick="setStudentId()">Enter</button>
+            </div>
+            <div class="container" style="background-color:#f1f1f1">
+            </div>
+         </div>
+      </div>
+      <!-- Main form -->
+      <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin" style="display:none" id="mainForm">
+      <div class="w3-container w3-green w3-center">
+         <h1>Feedback</h1>
+      </div>
+      <div class="w3-center w3-border-top w3-padding">
+         <div class="w3-center">
+            <label class="w3-validate">Suitable Pace</label>
+         </div>
+         <div class="w3-center">
+            <p><label>Fast/Slow</label>
+               <input class="w3-radio" type="radio" name="pace" value="-1" onChange="sendFeedback('updatePace',this.value)">
+               <input class="w3-radio" type="radio" name="pace" value="0" disabled checked>
+               <input class="w3-radio" type="radio" name="pace" value="1" onChange="sendFeedback('updatePace',this.value)">
+               <label>Good</label>
+            </p>
+         </div>
+      </div>
+      <div class="w3-center w3-border-top w3-padding">
+         <div class="w3-center">
+            <div class="w3-center">
+               <p>Suitable Volume</p>
+            </div>
+            <div clas="w3-center">
+               <p>
+                  <label class="w3-validate">Too low/high</label>
+                  <input class="w3-radio" type="radio" name="volum" value="-1" onChange="sendFeedback('updateVolume',this.value)">
+                  <input class="w3-radio" type="radio" name="volum" value="0" disabled checked>
+                  <input class="w3-radio" type="radio" name="volum" value="1" onChange="sendFeedback('updateVolume',this.value)">
+                  <label class="w3-validate">Good</label>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="w3-center w3-border-top w3-padding">
+         <div class="w3-center">
+            <label>Approperiate Body Language</label>
+         </div>
+		 <div class="w3-row">
+         <div class="w3-center">
+            <div class="w3-col"><p>
+               <label class="w3-validate">Too much/ not enough</label>
+               <input class="w3-radio" type="radio" name="blanguage" value="-1" onChange="sendFeedback('updateBodyLanguage',this.value)">
+               <input class="w3-radio" type="radio" name="blanguage" value="0" disabled checked>
+               <input class="w3-radio" type="radio" name="blanguage" value="1" onChange="sendFeedback('updateBodyLanguage',this.value)">
+               <label class="w3-validate">Good</label></p>
+            </div>
+         </div>
+		 </div>
+      </div>
+      <div class="w3-center w3-border-top w3-padding">
+         <div class="w3-center">
+            <label>Clarity of Presentation</label>
+         </div>
+         <div class="w3-center">
+            <p>
+               <label class="w3">Unclear</label>
+               <input class="w3-radio" type="radio" name="clarity" value="-1" onChange="sendFeedback('updateClarity',this.value)">
+               <input class="w3-radio" type="radio" name="clarity" value="0" disabled checked>
+               <input class="w3-radio" type="radio" name="clarity" value="1" onChange="sendFeedback('updateClarity',this.value)">
+               <label>Good</label>
+            </p>
+         </div>
+      </div>
+      <div class="w3-center w3-border-top">
+         <div class="w3-center">
+            <label>Interesting Topic</label>
+         </div>
+         <div class="w3-center">
+            <p>
+               <label class="w3-validate">Boring</label>
+               <input class="w3-radio" type="radio" name="interest" value="-1" onChange="sendFeedback('updateInterest',this.value)">
+               <input class="w3-radio" type="radio" name="interest" value="0" disabled checked>
+               <input class="w3-radio" type="radio" name="interest" value="1" onChange="sendFeedback('updateInterest',this.value)">
+               <label class="w3-validate">Good</label>
+            </p>
+            <p>
+         </div>
+      </div>
+      
+      <p class="w3-center">
+         <button type="button" class="w3-red" onClick="runSurvey()">Survey</button>
+      </p>
+      <div id="loadingModal" class="w3-modal" style="display:hidden">
+         <div class="w3-modal-content">
+            <div class="w3-container">Sending feedback...</div>
+         </div>
+      </div>
+      <script>
+         function parseMetricValue(value){
+         	return value;//?1:-1;
+         }
+         
+         function sendFeedback(metric, value){
+         
+         studentId = document.getElementById('studentId').value;
+         document.getElementById('loadingModal').style.display = "block";
+         
+         w3Http("/"+metric+"?studentId="+studentId+"&value="+parseMetricValue(value), function () {
+         	document.getElementById('loadingModal').style.display = "none";
+             //if (this.readyState == 4 && this.status == 200) {//alway return 500 :(
+         		//TODO: acknoledge the user
+             //}
+         });
+         }
+         function setStudentId(studentId){
+         var studentId = document.getElementById('studentId').value;
+         if(""!=studentId){
+         document.getElementById('loginForm').style.display='none';
+         document.getElementById('mainForm').style.display='block';
+         }
+         
+         }
+         function exit(){
+         document.getElementById('loginForm').style.display='block';
+         document.getElementById('mainForm').style.display='none';
+         }
+         
+         function runSurvey(){
+        	 var studentId = document.getElementById('studentId').value;
+        	 var url= "https://docs.google.com/forms/d/e/1FAIpQLScKBjj7xU8j5dHzjJcrYB-uA52gw1AZmPid_GndIjjdH-9LBA/viewform?entry.2095739304="+studentId;
+        	 window.open(url,"_self")
+         }
+         
+         
+      </script>
+   </body>
+</html>

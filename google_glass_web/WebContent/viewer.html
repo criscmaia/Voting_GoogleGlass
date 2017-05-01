@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+   <title>Feedback Viewer</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+   <script src="https://www.w3schools.com/lib/w3data.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <body>
+      <br>
+      <div class="w3-container">
+         <h2>Feedback Viewer</h2>
+      </div>
+      <div class="w3-container  w3-center w3-green w3-hover-blue w3-row-padding w3-row" style="cursor:pointer" onClick="act()">
+      
+         <p id="actPane">Act Here!</p>
+      </div>
+      <br/>
+      <div class="w3-row-padding">
+         <div class="w3-third w3-margin-bottom">
+            <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+               <li class="">
+                  <div class="w3-row w3-padding" style="">
+                     <div class="w3-light-grey ">
+                        <div id="pace_lhs" class="w3-container w3-green w3-right w3-round" style="width:0%"></div>
+                     </div>
+                  </div>
+               </li>
+               <li class="">
+                  <div class="w3-row w3-padding" style="">
+                     <div class="w3-light-grey ">
+                        <div id="volume_lhs" class="w3-container w3-green w3-right  w3-round" style="width:0%"></div>
+                     </div>
+                  </div>
+               </li>
+               <li class="">
+                  <div class="w3-row w3-padding" style="">
+                     <div class="w3-light-grey ">
+                        <div id="bodyLanguage_lhs" class="w3-container w3-green w3-right w3-round" style="width:0%"></div>
+                     </div>
+                  </div>
+               </li>
+               <li class="">
+                  <div class="w3-row w3-padding" style="" >
+                     <div class="w3-light-grey ">
+                        <div id="clarity_lhs" class="w3-container w3-green w3-right w3-round" style="width:0%"></div>
+                     </div>
+                  </div>
+               </li>
+               <li class="">
+                  <div class="w3-row w3-padding">
+                     <div class="w3-light-grey">
+                        <div id="interest_lhs" class="w3-container w3-green w3-right  w3-round" style="width:0%"></div>
+                     </div>
+                  </div>
+               </li>
+            </ul>
+         </div>
+         <div class="w3-third w3-margin-bottom" style="width:80px;">
+            <ul class="w3-ul ">
+               <li class="w3-border-0 w3-padding"><i style="" class="w3-center  w3-xxlarge fa fa-fighter-jet"></i></li>
+               <li class="w3-border-0 w3-padding"><i style="" class="w3-center  w3-xxlarge fa fa-microphone"></i></li>
+               <li class="w3-border-0 w3-padding"><i style="" class="w3-center  w3-xxlarge fa fa fa-warning"></i></li>
+               <li class="w3-border-0 w3-padding"><i style="" class="w3-center  w3-xxlarge fa fa-file-o"></i></li>
+               <li class="w3-border-0 w3-padding"><i style="" class="w3-center  w3-xxlarge fa fa-child"></i></li>
+            </ul>
+         </div>
+         <div class="w3-third w3-margin-bottom">
+            <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+               <li class="">
+                  <div class="w3-row w3-padding" style="">
+                     <div class="w3-light-grey ">
+                        <div id="pace_rhs" class="w3-container w3-red w3-left w3-round" style="width:0%"></div>
+                     </div>
+                  </div>
+               </li>
+               <li class="">
+                  <div class="w3-row w3-padding" style="">
+                     <div class="w3-light-grey ">
+                        <div id="volume_rhs" class="w3-container w3-red w3-left  w3-round" style="width:0%"></div>
+                     </div>
+                  </div>
+               </li>
+               <li class="">
+                  <div class="w3-row w3-padding" style="">
+                     <div class="w3-light-grey ">
+                        <div id="bodyLanguage_rhs" class="w3-container w3-red w3-left w3-round" style="width:0%"></div>
+                     </div>
+                  </div>
+               </li>
+               <li class="">
+                  <div class="w3-row w3-padding" style="" >
+                     <div class="w3-light-grey ">
+                        <div id="clarity_rhs" class="w3-container w3-red w3-left w3-round" style="width:0%"></div>
+                     </div>
+                  </div>
+               </li>
+               <li class="">
+                  <div class="w3-row w3-padding">
+                     <div class="w3-light-grey">
+                        <div id="interest_rhs" class="w3-container w3-red w3-left  w3-round" style="width:0%"></div>
+                     </div>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </div>
+   </body>
+  <script>
+populateData();
+var myVar = setInterval(populateData, 2000);
+function populateData(){
+	w3Http("service/getFeedback", function () {
+	    if (this.readyState == 4 && (this.status == 204||this.status == 200)) {
+	    	var feedbackObject = JSON.parse(this.responseText);
+	    	for(var i in feedbackObject){
+	    		setLHSData(feedbackObject[i].metric, feedbackObject[i].lhs);
+	    		setRHSData(feedbackObject[i].metric, feedbackObject[i].rhs)
+	    	}
+	    	
+	    }
+	});
+}
+
+function setLHSData(metric, value){
+	var lhsElement = document.getElementById(metric+"_lhs");
+	lhsElement.innerHTML = value;
+	lhsElement.style.width = value;
+}
+
+function setRHSData(metric, value){
+	var rhsElement = document.getElementById(metric+"_rhs");
+	rhsElement.innerHTML = value;
+	rhsElement.style.width = value;
+}
+function act(studentId){
+    
+    var actPane = document.getElementById('actPane');
+    //document.getElementById('loadingModal').style.display = "block";
+    
+    w3Http("service/act", function () {
+    	actPane.innerHTML = "Acting...";
+        if (this.readyState == 4 && (this.status == 200 || this.status == 204)) {
+        	actPane.innerHTML = "Act Here!";
+
+        }
+    });
+    }
+  </script>
+</html>
