@@ -286,21 +286,7 @@
         	 var url= "https://docs.google.com/forms/d/e/1FAIpQLScKBjj7xU8j5dHzjJcrYB-uA52gw1AZmPid_GndIjjdH-9LBA/viewform?entry.2095739304="+studentId;
         	 window.open(url,"_self")
          }
-         
-         function registerStudent(studentId){
-             
-             studentId = document.getElementById('studentId').value;
-             document.getElementById('loadingModal').style.display = "block";
-             
-             w3Http("service/registerStudent?studentId="+studentId, function () {
-             	
-                 if (this.readyState == 4 && (this.status == 200 || this.status == 204)) {
-                	alert(this.responseText);
-                 }
-             });
-             }
-         
-         
+	      
       </script>
    </body>
 </html>
